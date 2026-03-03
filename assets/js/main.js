@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    const API_URL = 'https://startup-buffet-api.onrender.com';
+
     // Header height (mantém os offsets consistentes)
     const getHeaderH = () => {
         const v = getComputedStyle(document.documentElement).getPropertyValue('--header-h');
@@ -264,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             setSubmitState(true);
-            const response = await fetch('/api/contact', {
+            const response = await fetch(API_URL + '/api/contact', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),
