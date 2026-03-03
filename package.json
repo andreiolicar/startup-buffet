@@ -1,0 +1,12 @@
+{
+    "name": "startup-buffet",
+    "version": "1.0.0",
+    "description": "Site e API de contato da Startup Buffet",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    }
+}
