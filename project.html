@@ -1,0 +1,529 @@
+﻿<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projeto - Startup Buffet</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        :root {
+            --header-h: 112px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-gutter: stable;
+        }
+
+        body {
+            padding-top: var(--header-h);
+        }
+
+        .hero-wrap {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-media {
+            position: absolute;
+            inset: 0;
+        }
+
+        .hero-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(1) contrast(1.05) brightness(.82);
+            transform: scale(1.03);
+            opacity: .3;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(11, 11, 11, .88), rgba(11, 11, 11, .62));
+        }
+
+        .grain:before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+            opacity: .12;
+            pointer-events: none;
+            mix-blend-mode: overlay;
+        }
+
+        [data-reveal] {
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity .7s ease, transform .7s ease;
+        }
+
+        [data-reveal].is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .lb-overlay {
+            background: rgba(0, 0, 0, .88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            opacity: 0;
+            transition: opacity .22s ease;
+        }
+
+        .lb-open .lb-overlay {
+            opacity: 1;
+        }
+
+        .lb-panel {
+            transform: translateY(10px) scale(.985);
+            opacity: 0;
+            transition: transform .22s ease, opacity .22s ease;
+        }
+
+        .lb-open .lb-panel {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .lb-image {
+            max-height: min(72vh, 860px);
+            width: 100%;
+            object-fit: contain;
+            border-radius: 20px;
+            box-shadow: 0 40px 120px rgba(0, 0, 0, .55);
+            border: 1px solid rgba(255, 255, 255, .18);
+            background: rgba(255, 255, 255, .05);
+        }
+    </style>
+</head>
+
+<body class="bg-white text-[#0B0B0B] antialiased">
+
+    <header class="fixed top-0 z-50 w-full">
+        <div class="mx-auto max-w-6xl px-4 py-3">
+            <div class="rounded-2xl border border-black/10 bg-white/70 backdrop-blur-xl shadow-sm">
+                <div class="flex min-h-[88px] items-center justify-between px-4 sm:px-6">
+
+                    <a href="index.html#projetos" class="flex items-center gap-3" aria-label="Voltar ao portfólio">
+                        <img src="assets/images/logo-startup-buffet.png" alt="Startup Buffet"
+                            class="h-20 w-20 rounded-2xl object-contain" />
+                    </a>
+
+                    <div class="flex items-center gap-2">
+                        <a href="index.html#projetos"
+                            class="hidden sm:inline-flex rounded-xl border border-black/15 px-4 py-2 text-sm font-semibold hover:bg-black/5 transition">
+                            Voltar ao portfólio
+                        </a>
+                        <a href="index.html#contato"
+                            class="inline-flex items-center justify-center rounded-xl bg-[#0B0B0B] px-4 py-2 text-sm font-semibold text-white hover:opacity-90 transition">
+                            Solicitar conversa
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-wrap grain">
+        <div class="hero-media" aria-hidden="true">
+            <img id="projectHeroImg" src="" alt="" class="hidden" />
+            <div id="projectHeroPlaceholder" class="absolute inset-0 bg-gradient-to-br from-black/10 to-black/5"></div>
+        </div>
+        <div class="hero-overlay" aria-hidden="true"></div>
+
+        <div class="relative mx-auto max-w-6xl px-4 py-16 sm:py-20">
+            <div class="grid gap-10 lg:grid-cols-12">
+                <div class="lg:col-span-7" data-reveal>
+                    <div class="flex flex-wrap gap-2">
+                        <span id="projectType"
+                            class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-white text-sm">Tipologia</span>
+                        <span id="projectStatus"
+                            class="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-white text-sm">Status</span>
+                    </div>
+
+                    <h1 id="projectTitle" class="mt-5 text-white text-4xl sm:text-5xl font-extrabold tracking-tight">
+                        Projeto</h1>
+                    <p id="projectSubtitle" class="mt-5 max-w-2xl text-white/85 text-base sm:text-lg leading-relaxed">
+                        Resumo técnico-comercial do projeto.
+                    </p>
+
+                    <div class="mt-8 flex flex-col sm:flex-row gap-3">
+                        <a href="#visao"
+                            class="inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-semibold text-[#0B0B0B] hover:opacity-90 transition">
+                            Ver visão geral
+                        </a>
+                        <a href="#contato"
+                            class="inline-flex items-center justify-center rounded-xl border border-white/30 bg-transparent px-5 py-3 text-sm font-semibold text-white hover:bg-white/10 transition">
+                            Quero algo assim
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5" data-reveal>
+                    <div class="rounded-3xl bg-white/95 shadow-xl border border-black/10 p-6 sm:p-8">
+                        <div class="text-xs font-semibold tracking-widest text-black/60">HIGHLIGHTS</div>
+                        <h2 class="mt-2 text-2xl font-extrabold tracking-tight">O que foi entregue</h2>
+
+                        <div class="mt-6 grid gap-3">
+                            <div class="rounded-2xl border border-black/10 p-4">
+                                <div class="text-sm font-semibold">Escopo</div>
+                                <div id="projectScope" class="mt-1 text-sm text-black/70">Conceito, projetos e implantação</div>
+                            </div>
+                            <div class="rounded-2xl border border-black/10 p-4">
+                                <div class="text-sm font-semibold">Local</div>
+                                <div id="projectLocation" class="mt-1 text-sm text-black/70">Cidade, UF</div>
+                            </div>
+                            <div class="rounded-2xl border border-black/10 p-4">
+                                <div class="text-sm font-semibold">Pontos-chave</div>
+                                <div id="projectKeypoints" class="mt-1 text-sm text-black/70">Fluxo, setorização e operação</div>
+                            </div>
+                        </div>
+
+                        <a href="#galeria"
+                            class="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-[#0B0B0B] px-5 py-3 text-sm font-semibold text-white hover:opacity-90 transition">
+                            Ver galeria
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <main class="mx-auto max-w-6xl px-4">
+
+        <section id="visao" class="py-16 sm:py-20">
+            <div class="grid gap-10 lg:grid-cols-12">
+                <div class="lg:col-span-7" data-reveal>
+                    <div class="text-xs font-semibold tracking-widest text-black/50">01</div>
+                    <h2 class="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight">Visão geral</h2>
+                    <p id="projectOverview" class="mt-4 text-black/70 leading-relaxed"></p>
+
+                    <div class="mt-8 grid gap-4 sm:grid-cols-3">
+                        <div class="rounded-2xl border border-black/10 p-5">
+                            <div class="text-sm font-semibold">Desafio</div>
+                            <div id="projectChallenge" class="mt-2 text-sm text-black/70"></div>
+                        </div>
+                        <div class="rounded-2xl border border-black/10 p-5">
+                            <div class="text-sm font-semibold">Estratégia</div>
+                            <div id="projectStrategy" class="mt-2 text-sm text-black/70"></div>
+                        </div>
+                        <div class="rounded-2xl border border-black/10 p-5">
+                            <div class="text-sm font-semibold">Resultado</div>
+                            <div id="projectResult" class="mt-2 text-sm text-black/70"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5" data-reveal>
+                    <div class="rounded-3xl bg-[#FAFAFA] border border-black/10 p-8">
+                        <div class="text-xs font-semibold tracking-widest text-black/50">DADOS</div>
+                        <h3 class="mt-2 text-xl font-extrabold tracking-tight">Indicadores do projeto</h3>
+                        <p class="mt-2 text-sm text-black/70">Leitura objetiva de escala e prazo da implantação.</p>
+
+                        <div class="mt-6 grid gap-4">
+                            <div class="flex items-center justify-between rounded-2xl bg-white border border-black/10 p-4">
+                                <div class="text-sm font-semibold">Área</div>
+                                <div id="metricArea" class="text-sm text-black/70">- m²</div>
+                            </div>
+                            <div class="flex items-center justify-between rounded-2xl bg-white border border-black/10 p-4">
+                                <div class="text-sm font-semibold">Capacidade</div>
+                                <div id="metricCapacity" class="text-sm text-black/70">- pessoas</div>
+                            </div>
+                            <div class="flex items-center justify-between rounded-2xl bg-white border border-black/10 p-4">
+                                <div class="text-sm font-semibold">Prazo</div>
+                                <div id="metricTimeline" class="text-sm text-black/70">- semanas</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 sm:py-20 border-t border-black/10">
+            <div class="grid gap-10 lg:grid-cols-12">
+                <div class="lg:col-span-5" data-reveal>
+                    <div class="text-xs font-semibold tracking-widest text-black/50">02</div>
+                    <h2 class="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight">Etapas e entregas</h2>
+                    <p class="mt-4 text-black/70 leading-relaxed">
+                        Sequência de trabalho do projeto, do diagnóstico inicial até a validação de operação.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-7" data-reveal>
+                    <ol id="timelineList" class="relative border-l border-black/10 pl-6 space-y-8"></ol>
+                </div>
+            </div>
+        </section>
+
+        <section id="galeria" class="py-16 sm:py-20 border-t border-black/10">
+            <div class="flex items-end justify-between gap-6" data-reveal>
+                <div>
+                    <div class="text-xs font-semibold tracking-widest text-black/50">03</div>
+                    <h2 class="mt-2 text-3xl sm:text-4xl font-extrabold tracking-tight">Galeria</h2>
+                    <p class="mt-3 max-w-2xl text-black/70">Registro visual do projeto com foco em ambientes, operação e experiência.</p>
+                </div>
+                <button id="openLightbox"
+                    class="hidden sm:inline-flex rounded-xl border border-black/15 px-4 py-2 text-sm font-semibold hover:bg-black/5 transition">
+                    Ver em tela cheia
+                </button>
+            </div>
+
+            <div id="galleryGrid" class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-reveal></div>
+
+            <div class="mt-8 sm:hidden" data-reveal>
+                <button id="openLightboxMobile"
+                    class="inline-flex w-full items-center justify-center rounded-xl border border-black/15 px-4 py-3 text-sm font-semibold hover:bg-black/5 transition">
+                    Ver em tela cheia
+                </button>
+            </div>
+        </section>
+
+        <section id="contato" class="py-16 sm:py-20 border-t border-black/10" data-reveal>
+            <div class="rounded-3xl border border-black/10 bg-[#0B0B0B] p-10 text-white">
+                <div class="grid gap-8 lg:grid-cols-12 lg:items-center">
+                    <div class="lg:col-span-8">
+                        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Quer um projeto com esse nível de clareza?</h2>
+                        <p class="mt-3 text-white/80">Conte sua ideia e receba um direcionamento inicial de tipologia, capacidade e viabilidade.</p>
+                    </div>
+                    <div class="lg:col-span-4 flex flex-col gap-3">
+                        <a href="https://wa.me/5511953490366" target="_blank" rel="noopener"
+                            class="inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-semibold text-[#0B0B0B] hover:opacity-90 transition">Falar no WhatsApp</a>
+                        <a href="index.html#contato"
+                            class="inline-flex items-center justify-center rounded-xl border border-white/25 bg-transparent px-5 py-3 text-sm font-semibold text-white hover:bg-white/10 transition">Ir para contato</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10 flex items-center justify-between text-sm text-black/60">
+                <a href="index.html#projetos" class="hover:text-black">← Voltar</a>
+                <div>&copy; <span id="year"></span> Startup Buffet</div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="lightbox" class="fixed inset-0 z-[90] hidden items-center justify-center p-4 sm:p-6" aria-modal="true"
+        role="dialog" aria-label="Galeria em tela cheia">
+        <div class="lb-overlay absolute inset-0" data-close></div>
+
+        <div class="lb-panel relative z-10 w-full max-w-6xl">
+            <div class="rounded-2xl border border-white/15 bg-white/[0.04] p-3 sm:p-4">
+                <div class="mb-3 flex items-center justify-between text-white/90">
+                    <div class="text-sm font-semibold">Galeria do projeto <span id="lbCounter" class="text-white/70"></span></div>
+                    <button id="lbClose"
+                        class="rounded-xl border border-white/30 px-3 py-1.5 text-sm font-semibold text-white hover:bg-white/10 transition"
+                        aria-label="Fechar lightbox">
+                        Fechar
+                    </button>
+                </div>
+
+                <div class="relative">
+                    <img id="lbImage" class="lb-image" src="" alt="" />
+                    <button id="lbPrev"
+                        class="absolute left-3 top-1/2 -translate-y-1/2 rounded-full border border-white/30 bg-black/30 px-3 py-2 text-white hover:bg-black/45 transition"
+                        aria-label="Imagem anterior">
+                        ←
+                    </button>
+                    <button id="lbNext"
+                        class="absolute right-3 top-1/2 -translate-y-1/2 rounded-full border border-white/30 bg-black/30 px-3 py-2 text-white hover:bg-black/45 transition"
+                        aria-label="Próxima imagem">
+                        →
+                    </button>
+                </div>
+
+                <p id="lbCaption" class="mt-3 text-sm text-white/80"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/projects-data.js"></script>
+    <script>
+        (function () {
+            const params = new URLSearchParams(window.location.search);
+            const requested = (params.get('id') || '01').padStart(2, '0');
+            const projects = window.STARTUP_PROJECTS || {};
+            const project = projects[requested] || projects['01'];
+
+            if (!project) {
+                return;
+            }
+
+            document.title = project.title + ' - Startup Buffet';
+
+            const setText = (id, value) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = value || '';
+            };
+
+            setText('projectTitle', project.title);
+            setText('projectSubtitle', project.subtitle);
+            setText('projectType', project.type);
+            setText('projectStatus', project.status);
+            setText('projectScope', project.scope);
+            setText('projectLocation', project.location);
+            setText('projectKeypoints', project.keypoints);
+
+            setText('projectOverview', project.overview);
+            setText('projectChallenge', project.challenge);
+            setText('projectStrategy', project.strategy);
+            setText('projectResult', project.result);
+
+            setText('metricArea', project.metrics.areaM2 + ' m²');
+            setText('metricCapacity', project.metrics.capacity + ' pessoas');
+            setText('metricTimeline', project.metrics.timelineWeeks + ' semanas');
+
+            const heroImg = document.getElementById('projectHeroImg');
+            const heroPh = document.getElementById('projectHeroPlaceholder');
+            if (project.heroImage && heroImg) {
+                heroImg.src = project.heroImage;
+                heroImg.alt = project.heroAlt || project.title;
+                heroImg.classList.remove('hidden');
+                heroPh?.classList.add('hidden');
+            }
+
+            const timelineList = document.getElementById('timelineList');
+            if (timelineList) {
+                timelineList.innerHTML = (project.timeline || []).map(function (step) {
+                    return '' +
+                        '<li>' +
+                        '<span class="absolute -left-[7px] mt-1 h-3 w-3 rounded-full bg-black/70"></span>' +
+                        '<div class="text-sm font-semibold">' + step.title + '</div>' +
+                        '<div class="mt-1 text-sm text-black/70">' + step.description + '</div>' +
+                        '</li>';
+                }).join('');
+            }
+
+            const gallery = Array.isArray(project.gallery) ? project.gallery : [];
+            const galleryGrid = document.getElementById('galleryGrid');
+            if (galleryGrid) {
+                galleryGrid.innerHTML = gallery.map(function (item, index) {
+                    return '' +
+                        '<button type="button" class="galleryItem group relative overflow-hidden rounded-3xl border border-black/10 bg-white shadow-sm" data-index="' + index + '">' +
+                        '<img src="' + item.src + '" alt="' + item.alt + '" class="h-56 w-full object-cover grayscale group-hover:grayscale-0 transition" loading="lazy" />' +
+                        '<div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/5 to-black/0"></div>' +
+                        '<div class="absolute bottom-4 left-5 right-5 text-sm font-semibold text-white">' + item.caption + '</div>' +
+                        '</button>';
+                }).join('');
+            }
+
+            const revealEls = Array.from(document.querySelectorAll('[data-reveal]'));
+            const revealObs = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        revealObs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
+            revealEls.forEach(function (el) { revealObs.observe(el); });
+
+            const lb = document.getElementById('lightbox');
+            const lbImage = document.getElementById('lbImage');
+            const lbCaption = document.getElementById('lbCaption');
+            const lbCounter = document.getElementById('lbCounter');
+            const lbClose = document.getElementById('lbClose');
+            const lbPrev = document.getElementById('lbPrev');
+            const lbNext = document.getElementById('lbNext');
+            const openDesktop = document.getElementById('openLightbox');
+            const openMobile = document.getElementById('openLightboxMobile');
+
+            let currentIndex = 0;
+            let lastFocused = null;
+            const previousBodyPaddingRight = document.body.style.paddingRight;
+
+            function lockPageScroll() {
+                const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+                document.body.style.overflow = 'hidden';
+                if (scrollbarWidth > 0) {
+                    document.body.style.paddingRight = scrollbarWidth + 'px';
+                }
+            }
+
+            function unlockPageScroll() {
+                document.body.style.overflow = '';
+                document.body.style.paddingRight = previousBodyPaddingRight;
+            }
+
+            function renderLightbox(index) {
+                if (!gallery.length) return;
+                currentIndex = (index + gallery.length) % gallery.length;
+                const current = gallery[currentIndex];
+                lbImage.src = current.src;
+                lbImage.alt = current.alt || ('Imagem ' + (currentIndex + 1));
+                lbCaption.textContent = current.caption || '';
+                lbCounter.textContent = (currentIndex + 1) + ' / ' + gallery.length;
+            }
+
+            function openLightbox(index) {
+                if (!lb || !gallery.length) return;
+                lastFocused = document.activeElement;
+                renderLightbox(typeof index === 'number' ? index : currentIndex);
+                lb.classList.remove('hidden');
+                lb.classList.add('flex', 'lb-open');
+                lockPageScroll();
+                window.setTimeout(function () {
+                    lbClose?.focus();
+                }, 20);
+            }
+
+            function closeLightbox() {
+                if (!lb) return;
+                lb.classList.remove('lb-open');
+                unlockPageScroll();
+                window.setTimeout(function () {
+                    lb.classList.add('hidden');
+                    lb.classList.remove('flex');
+                    if (lastFocused && typeof lastFocused.focus === 'function') {
+                        lastFocused.focus();
+                    }
+                }, 180);
+            }
+
+            function nextImage() {
+                renderLightbox(currentIndex + 1);
+            }
+
+            function prevImage() {
+                renderLightbox(currentIndex - 1);
+            }
+
+            galleryGrid?.addEventListener('click', function (event) {
+                const button = event.target.closest('.galleryItem');
+                if (!button) return;
+                const index = Number(button.getAttribute('data-index'));
+                if (Number.isNaN(index)) return;
+                openLightbox(index);
+            });
+
+            openDesktop?.addEventListener('click', function () { openLightbox(0); });
+            openMobile?.addEventListener('click', function () { openLightbox(0); });
+
+            lb?.querySelectorAll('[data-close]').forEach(function (el) {
+                el.addEventListener('click', closeLightbox);
+            });
+            lbClose?.addEventListener('click', closeLightbox);
+            lbNext?.addEventListener('click', nextImage);
+            lbPrev?.addEventListener('click', prevImage);
+
+            document.addEventListener('keydown', function (event) {
+                if (!lb || lb.classList.contains('hidden')) return;
+                if (event.key === 'Escape') closeLightbox();
+                if (event.key === 'ArrowRight') nextImage();
+                if (event.key === 'ArrowLeft') prevImage();
+            });
+
+            setText('year', String(new Date().getFullYear()));
+        })();
+    </script>
+</body>
+
+</html>
+
