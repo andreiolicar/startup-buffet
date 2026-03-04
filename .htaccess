@@ -32,15 +32,15 @@
 # Opção 1: Redirecionar www para não-www
 # <IfModule mod_rewrite.c>
 #     RewriteEngine On
-#     RewriteCond %{HTTP_HOST} ^www\.buffetstarup\.com\.br [NC]
-#     RewriteRule ^(.*)$ https://buffetstarup.com.br/$1 [L,R=301]
+#     RewriteCond %{HTTP_HOST} ^www\.startupbuffet\.com\.br [NC]
+#     RewriteRule ^(.*)$ https://startupbuffet.com.br/$1 [L,R=301]
 # </IfModule>
 
 # Opção 2: Redirecionar não-www para www
 # <IfModule mod_rewrite.c>
 #     RewriteEngine On
-#     RewriteCond %{HTTP_HOST} ^buffetstarup\.com\.br [NC]
-#     RewriteRule ^(.*)$ https://www.buffetstarup.com.br/$1 [L,R=301]
+#     RewriteCond %{HTTP_HOST} ^startupbuffet\.com\.br [NC]
+#     RewriteRule ^(.*)$ https://www.startupbuffet.com.br/$1 [L,R=301]
 # </IfModule>
 
 # Segurança - Prevenir acesso a arquivos sensíveis
